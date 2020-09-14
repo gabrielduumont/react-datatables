@@ -1,0 +1,28 @@
+.gdDatatableSearchInputWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  margin: 0 !important;
+  padding: .15rem .25rem !important;
+
+  label {
+    font-size: 0.85rem;
+    text-transform: lowercase;
+    padding: 0.1rem;
+  }
+
+  input {
+
+  }
+
+  p {
+    margin: 0 !important;
+    padding: 0.1rem;
+    font-size: 0.7rem;
+    color: #656;
+    text-transform: lowercase;
+  }
+
+}
