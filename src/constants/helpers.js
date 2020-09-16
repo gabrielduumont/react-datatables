@@ -20,7 +20,7 @@ export const getPagesFromData = (data, size) => {
   const arrData = [...data];
   while (arrData.length > 0)
     arrays.push(arrData.splice(0, size));
-
+  console.log(arrays)
   return arrays;
 }
 
