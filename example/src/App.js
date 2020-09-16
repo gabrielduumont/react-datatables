@@ -5,102 +5,92 @@ import '@gabrielduumont/react-datatables/dist/index.css'
 
 const headers = [
   {
-    label: 'Teste',
-    key: 'test1',
+    label: 'Name',
+    key: 'Name',
   },
   {
-    label: 'Teste2',
-    key: 'test2',
+    label: 'Position',
+    key: 'Position',
   },
   {
-    label: 'Teste3',
-    key: 'test3',
+    label: 'Office',
+    key: 'Office',
+  },
+  {
+    label: 'Age',
+    key: 'Age',
+  },
+  {
+    label: 'Start date',
+    key: 'StartDate',
+  },
+  {
+    label: 'Salary',
+    key: 'Salary',
   },
 ];
-const data = [
-  {
-    test1: {
-      value: 'Teste Value',
-    },
-    test2: {
-      value: 1,
-      parser: value => value === 1 ? "ues" : "nou"
-    },
-    test3: {
-      value: 'Teste Value3',
-    },
-  },
-  {
-    test1: {
-      value: 'ahaha',
-    },
-    test2: {
-      value: 2,
-      parser: value => value === 1 ? "ues" : "nou"
-    },
-    test3: {
-      value: 'texst',
-      parser: value => { return (<button>{value}</button>) }
-    },
-  },
-  {
-    test1: {
-      value: 'ahaha',
-    },
-    test2: {
-      value: 2,
-      parser: value => value === 1 ? "ues" : "nou"
-    },
-    test3: {
-      value: 'texst',
-      parser: value => { return (<button>{value}</button>) }
-    },
-  },
-  {
-    test1: {
-      value: 'ahaha',
-    },
-    test2: {
-      value: 2,
-      parser: value => value === 1 ? "ues" : "nou"
-    },
-    test3: {
-      value: 'texst',
-      parser: value => { return (<button>{value}</button>) }
-    },
-  },
-  {
-    test1: {
-      value: 'ahaha',
-    },
-    test2: {
-      value: 2,
-      parser: value => value === 1 ? "ues" : "nou"
-    },
-    test3: {
-      value: 'texst',
-      parser: value => { return (<button>{value}</button>) }
-    },
-  },
-  {
-    test1: {
-      value: 'ahaha',
-    },
-    test2: {
-      value: 2,
-      parser: value => value === 1 ? "ues" : "nou"
-    },
-    test3: {
-      value: 'texst',
-      parser: value => { return (<button>{value}</button>) }
-    },
-  },
-];
+
+
+
+const generateName = () => {
+  var name1 = ["Daniel", "Antonio", "Francisco", "Ana", "Josephine", "Ada"];
+  var name2 = ["Baggins", "Elves", "Shire", "York", "Munk", "Zonk"];
+  var name = name1[Math.floor(Math.random() * 6)] + " " +name2[Math.floor(Math.random() * 6)];
+  return name;
+
+}
+
+const generatePosition =  () => {
+  const positionArray = ["Tokyo", "London", "San Francisco", "New York"];
+
+  return positionArray[Math.floor(Math.random() * 4)];
+}
+
+const generateOffice =  () => {
+  const positionArray = ["Software Engineer", "Integration Specialist", "Chief Executive Officer (CEO)", "Junior Technical Author"];
+
+  return positionArray[Math.floor(Math.random() * 4)];
+}
+const generateDate =  () => {
+  const day = Math.floor(Math.random() * 29) + 1;
+  const month = Math.floor(Math.random() * 12) + 1;
+  const year = Math.floor(Math.random() * 10) + 2000;
+  return day + "/" + month + "/"+ year;
+}
+
+const generateData = () => {
+  const dataArr = [];
+  for (let i = 0; i < 125; ++i) {
+    let obj = {
+      Name: {
+        value: generateName(),
+      },
+      Position: {
+        value: generatePosition(),
+      },
+      Office: {
+        value: generateOffice(),
+      },
+      Age: {
+        value: Math.floor(Math.random() * 70) + 18,
+      },
+      StartDate: {
+        value: generateDate(),
+      },
+      Salary: {
+        value: Math.floor(Math.random() * 8000) + 1810.52,
+      },
+    };
+    dataArr.push(obj);
+  }
+  return dataArr;
+}
+const data = generateData();
 
 const App = () => {
   return (
     <div>
-      <DataTable data={data} headers={headers} />
+      <DataTable data={data} headers={headers} lang="pt-br" />
     </div>
   )
 }

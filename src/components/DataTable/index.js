@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import Header from '../Header'
-import Content from '../Content'
+import Table from '../Table'
 import PaginationControl from '../PaginationControl'
 import Pagination from '../Pagination'
 import SearchBox from '../SearchBox'
@@ -82,21 +81,17 @@ export default function DataTable({ headers, data, lang = null }) {
           </div>
         </div>
         <div className={styles.gdDatatableTableWrapper}>
-          <table
-            className={styles.gdDatatableTable}
-          >
-            <Header
-              headers={headers}
-              activeOrderHeader={activeOrderHeader}
-              setActiveOrderHeader={setActiveOrderHeader}
-            />
-            <Content headers={headers} content={tableData.currentPageData} />
-          </table>
+          <Table 
+            headers={headers}
+            activeOrderHeader={activeOrderHeader}
+            setActiveOrderHeader={setActiveOrderHeader}
+            content={tableData.currentPageData}
+          />
         </div>
         <div className={styles.gdDatatablePagination}>
           <Pagination
             currentPage={currentPage}
-            pageLength={tableData.currentPageData.length}
+            pageLength={!!tableData && !!tableData.currentPageData ? tableData.currentPageData.length : 0}
             dataLength={!!data ? data.length : 0}
             totalPages={tableData.totalPages}
             setCurrentPage={setCurrentPage}

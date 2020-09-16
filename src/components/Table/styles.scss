@@ -1,0 +1,43 @@
+.gdDatatableTable {
+    margin: 1rem 0 1rem 0 !important;
+    padding: 0 0.25rem !important;
+    min-height: 100px;
+    max-width: 100%;
+    table-layout: fixed;
+
+    thead {
+        tr {
+            th {
+                text-align: left;
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                font-weight: 500;
+                margin: 0;
+                padding: 0.15rem 0.25rem;
+
+                div {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                }
+            }
+        }
+    }
+    tbody {
+        tr {
+            td {
+                text-align: left;
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                font-weight: 500;
+                margin: 0;
+                padding: 0 0.15rem !important;
+            }
+        }
+
+        tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+    }
+}

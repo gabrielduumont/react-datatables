@@ -15,12 +15,12 @@ npm install --save @gabrielduumont/react-datatables
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from '@gabrielduumont/react-datatables'
+import { DataTable } from '@gabrielduumont/react-datatables'
 import '@gabrielduumont/react-datatables/dist/index.css'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <DataTable />
   }
 }
 ```
