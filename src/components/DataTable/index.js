@@ -5,7 +5,7 @@ import PaginationControl from '../PaginationControl'
 import Pagination from '../Pagination'
 import SearchBox from '../SearchBox'
 import _ from 'lodash'
-import { filterParser, getPagesFromData, orderByParser } from '../../constants/helpers'
+import { filterParser, getPagesFromData, orderByParser } from '../../util/helpers/TableHelpers'
 import styles from './styles.scss'
 
 export default function DataTable({ headers, data, lang = null }) {
@@ -53,7 +53,7 @@ export default function DataTable({ headers, data, lang = null }) {
     }
 
     const initializeArray = (array) => {
-      const data = paginateData(orderData(filterData(array)))
+      const data = paginateData(filterData(orderData(array)))
       return {
         totalPages: data.totalPages,
         currentPageData: data.currentPageData
