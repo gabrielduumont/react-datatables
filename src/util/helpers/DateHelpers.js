@@ -1,99 +1,83 @@
+import { DateTime } from 'luxon';
 
-const sanitizeDateAsArray = (date = []) => {
-  const shallowCopy = [...date];
-  if (parseInt(shallowCopy[0]) < 10) shallowCopy[0] = '0' + shallowCopy[0];
-  if (parseInt(shallowCopy[1]) < 10) shallowCopy[1] = '0' + shallowCopy[1];
-  if (parseInt(shallowCopy[2]) < 10) shallowCopy[2] = '0' + shallowCopy[2];
+
+const createSafeDate = (date = null, format = null) => {
+  if (!date)
+    return DateTime.local();
+  if (!format)
+    return DateTime.fromISO(date);
+
+  return DateTime.fromFormat(date, format);
+};
+
+const addLeadingZeroToDatePartsIfNeeded = (date = {
+  year: null,
+  month: null,
+  day: null,
+}) => {
+  const shallowCopy = { ...date };
+  for (let i in shallowCopy) {
+    if (parseInt(shallowCopy[i]) < 10) {
+      shallowCopy[i] = '0' + shallowCopy[i];
+    }
+  }
+
   return shallowCopy;
 }
 
-const sanitizeDate = (date) => {
-  const sanitized = date.split('-');
-  return new Date(parseInt(sanitized[0]), parseInt(sanitized[1])-1, parseInt(sanitized[2]), 0, 0, 0, 0);
-};
-
-export const dateRegexList = [
-  {
-    format: "YYYY-MM-DD or YYYY/MM/DD or YYYY.MM.DD",
-    regex: /^([0-9]{4}|[0-9]{2})[./-]([0]?[1-9]|[1][0-2])[./-]([0]?[1-9]|[1|2][0-9]|[3][0|1])$/,
-    standardize: (value) => {
-      let standard = null;
-      if (value.includes('.')) {
-        standard = sanitizeDateAsArray(value.split('.'));
-      }
-      else if (value.includes('/')) {
-        standard = sanitizeDateAsArray(value.split('/'));
-      }
-      else {
-        standard = sanitizeDateAsArray(value.split('-'));
-      }
-      return sanitizeDate(standard.join("-"));
-    }
-  },
-  {
-    format: "DD-MM-YYYY or DD/MM/YYYY or DD.MM.YYYY",
-    regex: /^([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2})$/,
-    standardize: (value = '') => {
-      let standard = null;
-      if (value.includes('.')) {
-        standard = sanitizeDateAsArray(value.split('.'));
-      }
-      else if (value.includes('/')) {
-        standard = sanitizeDateAsArray(value.split('/'));
+const breakDateStringIntoObject = (date = '') => {
+  const baseDateSeparators = ['.', '/', '-'];
+  let dateObj = {
+    year: null,
+    month: null,
+    day: null,
+  };
+  let foundValue = false;
+  for (let i in baseDateSeparators) {
+    if (date.includes(baseDateSeparators[i])) {
+      let splitter = date.split(baseDateSeparators[i]);
+      if (splitter[0].length === 4) {
+        dateObj.year = splitter[0];
+        dateObj.month = splitter[1];
+        dateObj.day = splitter[2];
       }
       else {
-        standard = sanitizeDateAsArray(value.split('-'));
+        dateObj.year = splitter[2];
+        dateObj.month = splitter[1];
+        dateObj.day = splitter[0];
       }
-      return sanitizeDate(standard[2] + '-' + standard[1] + '-' + standard[0]);
-    }
-  },
-];
-
-export const checkRegexArrayForMatch = (value = '') => {
-  let countMatches = 0;
-  for (let i = 0; i < dateRegexList.length; ++i) {
-    if (value.match(dateRegexList[i].regex)) {
-      countMatches++;
-    }
-  }
-  return countMatches > 0;
-}
-
-export const getStandardDateBasedOnRegexArray = (value = '') => {
-  let standardDate = null;
-  for (let i = 0; i < dateRegexList.length; ++i) {
-    if (value.match(dateRegexList[i].regex)) {
-      standardDate = dateRegexList[i].standardize(value);
+      foundValue = true;
       break;
     }
   }
-  return standardDate;
+
+  return !!foundValue ? dateObj : null;
+}
+
+const sanitizeDateString = (date = '') => {
+  const dateObject = breakDateStringIntoObject(date);
+  
+  if(!dateObject) return null;
+  const standardObject = addLeadingZeroToDatePartsIfNeeded(dateObject);
+
+  return standardObject.year + '' + standardObject.month + '-' + standardObject.day;
+}
+
+
+export const checkRegexArrayForMatch = (value = '') => {
+  let countMatches = 0;
+  /*for (let i = 0; i < dateRegexList.length; ++i) {
+    if (value.match(dateRegexList[i].regex)) {
+      countMatches++;
+    }
+  }*/
+  return countMatches === 0;
 }
 
 export const isDate = (value) => {
-  return checkRegexArrayForMatch(value, dateRegexList);
+  return checkRegexArrayForMatch(value);
 }
 
-export const handleStringValues = (value) => {
-  if (isDate(value)) {
-    return getStandardDateBasedOnRegexArray(value).toISOString();
-  }
-  else return value.toUpperCase();
-}
 
-export const dataTypeReducer = (type, value) => {
-  switch (type) {
-    case "string":
-      return handleStringValues(value);
-    case "number":
-      return parseFloat(value);
-    case "object":
-    case "function":
-    case "undefined":
-    case "boolean":
-    default:
-      return value;
-  }
-};
 
 export default null;

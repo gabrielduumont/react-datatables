@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import Content from '../Content'
 import Header from '../Header'
-import setLanguage from '../../constants/lang'
+import setLanguage from '../../constants/setLanguage'
 import styles from './styles.scss'
 
 

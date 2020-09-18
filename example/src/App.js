@@ -90,7 +90,7 @@ const data = generateData();
 const App = () => {
   return (
     <div>
-      <DataTable data={data} headers={headers} lang="pt-br" />
+      <DataTable data={data} headers={headers} />
     </div>
   )
 }
