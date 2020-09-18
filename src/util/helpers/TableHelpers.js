@@ -1,5 +1,26 @@
-import { dataTypeReducer } from './DateHelpers'
+import { isDate } from './DateHelpers'
 
+const handleStringValues = (value) => {
+    if (isDate(value)) {
+        //return getStandardDateBasedOnRegexArray(value).toISOString();
+    }
+    else return value.toUpperCase();
+}
+
+const dataTypeReducer = (type, value) => {
+    switch (type) {
+        case "string":
+            return handleStringValues(value);
+        case "number":
+            return parseFloat(value);
+        case "object":
+        case "function":
+        case "undefined":
+        case "boolean":
+        default:
+            return value;
+    }
+};
 
 export const orderByParser = (o, key) => {
     const value = !!o[key].parser ?
@@ -7,7 +28,7 @@ export const orderByParser = (o, key) => {
         : o[key].value;
 
     dataTypeReducer(typeof value, value);
-    
+
     return value;
 }
 export const filterParser = (o, search) => {
