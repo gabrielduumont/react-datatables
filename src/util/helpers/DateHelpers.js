@@ -56,28 +56,22 @@ const breakDateStringIntoObject = (date = '') => {
 
 const sanitizeDateString = (date = '') => {
   const dateObject = breakDateStringIntoObject(date);
-  
-  if(!dateObject) return null;
+
+  if (!dateObject) return null;
   const standardObject = addLeadingZeroToDatePartsIfNeeded(dateObject);
 
   return standardObject.year + '' + standardObject.month + '-' + standardObject.day;
 }
 
 
-export const checkRegexArrayForMatch = (value = '') => {
-  let countMatches = 0;
-  /*for (let i = 0; i < dateRegexList.length; ++i) {
-    if (value.match(dateRegexList[i].regex)) {
-      countMatches++;
-    }
-  }*/
-  return countMatches === 0;
-}
-
-export const isDate = (value) => {
-  return checkRegexArrayForMatch(value);
+export const isDate = (headers = [], key) => {
+  const itemHeader = headers.find(item => item.key.toUpperCase() === key.toUpperCase());
+  return itemHeader.type === 'date';
 }
 
 
+export const useDate = (date = null, format = null) => {
+  return createSafeDate(sanitizeDateString(date), format);
+};
 
 export default null;

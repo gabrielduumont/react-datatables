@@ -12,6 +12,7 @@
     "node": ">=10"
   },
   "scripts": {
+    "prestart": "yarn",
     "build": "microbundle-crl --no-compress --format modern,cjs",
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
     "prepare": "run-s build",

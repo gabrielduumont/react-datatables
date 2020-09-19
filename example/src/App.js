@@ -7,26 +7,32 @@ const headers = [
   {
     label: 'Name',
     key: 'Name',
+    type: 'string',
   },
   {
     label: 'Position',
     key: 'Position',
+    type: 'string',
   },
   {
     label: 'Office',
     key: 'Office',
+    type: 'string',
   },
   {
     label: 'Age',
     key: 'Age',
+    type: 'number',
   },
   {
     label: 'Start date',
     key: 'StartDate',
+    type: 'date',
   },
   {
     label: 'Salary',
     key: 'Salary',
+    type: 'number',
   },
 ];
 

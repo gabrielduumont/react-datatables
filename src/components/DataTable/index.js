@@ -20,7 +20,7 @@ export default function DataTable({ headers, data, lang = null }) {
     const orderData = (originalDataArray) => {
       const dataArray = [...originalDataArray];
       if (!!activeOrderHeader && dataArray.length > 0) {
-        const orderedArray = _.orderBy(dataArray, [o => orderByParser(o, activeOrderHeader.key)], [activeOrderHeader.order]);
+        const orderedArray = _.orderBy(dataArray, [o => orderByParser(o, activeOrderHeader.key, headers)], [activeOrderHeader.order]);
         return orderedArray;
       }
       else return dataArray;

@@ -1,16 +1,16 @@
-import { isDate } from './DateHelpers'
+import { isDate, useDate } from './DateHelpers'
 
-const handleStringValues = (value) => {
-    if (isDate(value)) {
-        //return getStandardDateBasedOnRegexArray(value).toISOString();
+const handleStringValues = (value, headers, key) => {
+    if (isDate(headers, key)) {
+        return useDate(value);
     }
     else return value.toUpperCase();
 }
 
-const dataTypeReducer = (type, value) => {
+const dataTypeReducer = (type, value, headers, key) => {
     switch (type) {
         case "string":
-            return handleStringValues(value);
+            return handleStringValues(value, headers, key);
         case "number":
             return parseFloat(value);
         case "object":
@@ -22,24 +22,25 @@ const dataTypeReducer = (type, value) => {
     }
 };
 
-export const orderByParser = (o, key) => {
+export const orderByParser = (o, key, headers) => {
     const value = !!o[key].parser ?
         o[key].parser(o[key].value)
         : o[key].value;
 
-    dataTypeReducer(typeof value, value);
-
-    return value;
+    return dataTypeReducer(typeof value, value, headers, key);
 }
 export const filterParser = (o, search) => {
-    let isValueIn = false;
+    let countMatches = 0;
     for (var prop in o) {
-        const value = !!o[prop].parser ? o[prop].parser(o[prop].value) : o[prop].value;
-        const standardizedValue = typeof value === "string" ? (!!value ? value.toLowerCase() : "") : "";
-        const standardizedSearch = !!search ? search.toLowerCase() : "";
-        isValueIn = isValueIn || standardizedValue.includes(standardizedSearch);
+        const value = !!o[prop].value ? !!o[prop].parser ? o[prop].parser(o[prop].value) : o[prop].value : "" ;
+        const standardizedValue = !!value ? value.toString().toLowerCase() : "";
+        const standardizedSearch = !!search ? search.toString().toLowerCase() : "";
+        if (standardizedValue.includes(standardizedSearch)) {
+            ++countMatches;
+            break;
+        }
     }
-    return isValueIn;
+    return countMatches > 0;
 }
 
 export const getPagesFromData = (data, size) => {
