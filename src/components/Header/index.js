@@ -50,7 +50,7 @@ const HeaderItem = ({ element, setActiveOrderHeader, activeOrderHeader, maxWidth
     return content;
 }
 
-export default function Header({ activeOrderHeader, setActiveOrderHeader, headers = [] }) {
+export default function Header({ activeOrderHeader, setActiveOrderHeader, headers = [], maxColumns = 1 }) {
     const content = useMemo(() => {
         if (!!headers && headers.length > 0) {
             const maxWidthForCells = 95 / headers.length;
@@ -60,20 +60,27 @@ export default function Header({ activeOrderHeader, setActiveOrderHeader, header
                         <th className='gd-datatable-table-header-cell'>
 
                         </th>
-                        {headers.map(element => <HeaderItem
-                            key={element.key}
-                            element={element}
-                            setActiveOrderHeader={setActiveOrderHeader}
-                            activeOrderHeader={activeOrderHeader}
-                            maxWidthForCells={maxWidthForCells}
-                        />)}
+                        {headers.map((element, index) => {
+                            if (index < maxColumns) {
+                                return (
+                                    <HeaderItem
+                                        key={element.key}
+                                        element={element}
+                                        setActiveOrderHeader={setActiveOrderHeader}
+                                        activeOrderHeader={activeOrderHeader}
+                                        maxWidthForCells={maxWidthForCells}
+                                    />
+                                );
+                            }
+                            else return null;
+                        })}
 
                     </tr>
                 </thead>
             )
         }
         else return null;
-    }, [headers, activeOrderHeader]);
+    }, [headers, activeOrderHeader, maxColumns]);
     return content;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Table from '../Table'
 import PaginationControl from '../PaginationControl'
@@ -6,11 +6,37 @@ import Pagination from '../Pagination'
 import SearchBox from '../SearchBox'
 import _ from 'lodash'
 import { filterParser, getPagesFromData, orderByParser } from '../../util/helpers/TableHelpers'
+import useWindowSize from '../../hooks/useWindowSize'
 import styles from './styles.scss'
 
+const getMaxColumnsByWindowWidth = (width) => {
+  let maxColumns = 0;
+  if(width >= 1281){
+    //Device = Desktops
+    maxColumns = 5;
+  }
+  else if(width > 1024 && width <= 1280){
+    //Laptops, Desktops
+    maxColumns = 4;
+  }
+  else if(width > 768 && width <= 1024){
+    //Tablets, Ipads (portrait)
+    maxColumns = 3;
+  }
+  else if(width > 500 && width <= 768){
+    //Tablets, Ipads (portrait)
+    maxColumns = 2;
+  }
+  else if(width <= 500){
+    maxColumns = 1;
+  }
+
+  return maxColumns;
+}
 export default function DataTable({ headers, data, lang = null }) {
   if (!headers || !data) return null;
   else {
+    const width = useWindowSize()[0];
     const [activeOrderHeader, setActiveOrderHeader] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [maxRecordsPerPage, setMaxRecordsPerPage] = useState(10);
@@ -86,6 +112,7 @@ export default function DataTable({ headers, data, lang = null }) {
             activeOrderHeader={activeOrderHeader}
             setActiveOrderHeader={setActiveOrderHeader}
             content={tableData.currentPageData}
+            maxColumns={getMaxColumnsByWindowWidth(width)}
           />
         </div>
         <div className={styles.gdDatatablePagination}>

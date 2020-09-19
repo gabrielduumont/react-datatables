@@ -36,17 +36,23 @@ const DetailsRow = (data, headers) => {
 
     return contentRender;
 }
-const DefaultRow = ({ detailsOpen, index, item, headers, content, toggleDetails }) => {
+const DefaultRow = ({ detailsOpen, index, item, headers, content, toggleDetails, maxColumns = 1 }) => {
     const contentRender = useMemo(() => {
         return (
             <tr className='gd-datatable-table-content-row'>
                 <td className='gd-datatable-table-content-cell' onClick={toggleDetails}>
-                    <span>{!detailsOpen ? 'hidden' : 'visible'}</span>
+                    <span>{!detailsOpen ? <span>+</span> : <span>-</span>}</span>
                 </td>
-                <HeaderCells index={index} item={item} headers={headers} content={content} />
+                <HeaderCells
+                    index={index}
+                    item={item}
+                    headers={headers}
+                    content={content}
+                    maxColumns={maxColumns}
+                />
             </tr>
         );
-    }, [detailsOpen, index, item, headers, content]);
+    }, [detailsOpen, index, item, headers, content, maxColumns]);
 
     return contentRender;
 };
@@ -63,7 +69,7 @@ const getItemsToRender = (defaultComponent, detailsOpen = false, data = null, he
 }
 
 
-const ContentRow = ({ index, item, headers, content }) => {
+const ContentRow = ({ index, item, headers, content, maxColumns = 1 }) => {
     const [detailsOpen, setDetailsOpen] = useState(false);
     const toggleDetails = () => setDetailsOpen(!detailsOpen);
 
@@ -76,16 +82,17 @@ const ContentRow = ({ index, item, headers, content }) => {
                 detailsOpen={detailsOpen}
                 index={index}
                 toggleDetails={toggleDetails}
+                maxColumns={maxColumns}
             />
         ), detailsOpen, item, headers);
 
         return itemsToRender.map((Component, index) => <Component key={`itemRow_${index}`} />);
-    }, [detailsOpen, headers, item, index, content]);
+    }, [detailsOpen, headers, item, index, content, maxColumns]);
 
     return contentRender;
 }
 
-export default function Content({ headers, content }) {
+export default function Content({ headers, content, maxColumns = 1 }) {
 
     const contentRender = useMemo(() => {
 
@@ -99,6 +106,7 @@ export default function Content({ headers, content }) {
                             item={item}
                             headers={headers}
                             content={content}
+                            maxColumns={maxColumns}
                         />
                     ))}
 
@@ -106,7 +114,7 @@ export default function Content({ headers, content }) {
             )
         }
         else return null;
-    }, [headers, content]);
+    }, [headers, content, maxColumns]);
 
     return contentRender;
 }

@@ -2,16 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styles from './styles.css'
 
-export default function HeaderCells({ item, index, headers }) {
+export default function HeaderCells({ item, index, headers, maxColumns = 1 }) {
 
-  return headers.map(headerItem => {
-    const parser = item[headerItem.key].parser;
-    const title = item[headerItem.key].title;
-    return (
-      <td key={headerItem.key + '_' + index} title={title} className='gd-datatable-table-content-cell'>
-        {!!parser ? parser(item[headerItem.key].value) : item[headerItem.key].value}
-      </td>
-    )
+  return headers.map((headerItem, innerIndex) => {
+    if (innerIndex < maxColumns) {
+
+      const parser = item[headerItem.key].parser;
+      const title = item[headerItem.key].title;
+      return (
+        <td key={headerItem.key + '_' + index} title={title} className='gd-datatable-table-content-cell'>
+          {!!parser ? parser(item[headerItem.key].value) : item[headerItem.key].value}
+        </td>
+      )
+    }
+    else return null;
   })
 }
 
