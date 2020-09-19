@@ -1,5 +1,6 @@
 /* add css module styles here (optional) */
 
-.test {
-  margin: 2em;
+.gdDetailsRow {
+  color: red;
+  display: revert;
 }

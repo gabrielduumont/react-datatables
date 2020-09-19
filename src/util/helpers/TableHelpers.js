@@ -43,7 +43,7 @@ export const filterParser = (o, search) => {
     return countMatches > 0;
 }
 
-export const getPagesFromData = (data, size) => {
+export const getPagesFromData = (data, size = 10) => {
     const arrays = [];
     const arrData = [...data];
     while (arrData.length > 0)

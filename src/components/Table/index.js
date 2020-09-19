@@ -22,6 +22,7 @@ export default function Table({ headers, activeOrderHeader, setActiveOrderHeader
             </table>
         );
     }, [headers, activeOrderHeader, content]);
+    
     return contentRenderer;
 }
 
