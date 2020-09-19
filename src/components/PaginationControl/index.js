@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
-import setLanguage from '../../constants/lang'
+import setLanguage from '../../constants/setLanguage'
 import styles from './styles.scss'
 
 export default function PaginationControl({ maxRecordsPerPage, setMaxRecordsPerPage, lang = null }) {

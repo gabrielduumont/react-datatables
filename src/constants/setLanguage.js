@@ -1,6 +1,6 @@
 import defaultLang from './defaultLang'
 
-export default function setLanguage(language) {
+const setLanguage = (language) => {
   if (!language) {
     return defaultLang["en-us"];
   }
@@ -21,3 +21,5 @@ export default function setLanguage(language) {
   }
 
 }
+
+export default setLanguage;

@@ -23,6 +23,10 @@
                 }
             }
         }
+        tr th:first-child{
+            max-width: 2%;
+            width: 2%;
+        }
     }
     tbody {
         tr {
@@ -38,6 +42,20 @@
 
         tr:nth-child(odd) {
             background-color: #f2f2f2;
+        }
+        tr td:first-child{
+            text-align: center;
+            max-width: 2%;
+            width: 2%;
+            transition: all .25s;
+
+            p{
+                text-align: left;
+            }
+        }
+        tr td:first-child:hover{
+            cursor: pointer;
+            background-color: #00000015;
         }
     }
 }

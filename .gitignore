@@ -3,6 +3,7 @@
 
 # dependencies
 node_modules
+.scannerwork
 
 # builds
 build
