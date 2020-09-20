@@ -60,7 +60,7 @@ const sanitizeDateString = (date = '') => {
 }
 
 
-export const isDate = (headers = [], key) => {
+export const isDate = (key, headers = []) => {
   const itemHeader = headers.find(item => item.key.toUpperCase() === key.toUpperCase());
   return itemHeader.type === 'date';
 }

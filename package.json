@@ -4,7 +4,7 @@
   "description": "React component that will render data into a responsive HTML table",
   "author": "gabrielduumont",
   "license": "MIT",
-  "repository": "gabrielduumont/@gabrielduumont/react-datatables",
+  "repository": "gabrielduumont/react-datatables",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",
@@ -55,7 +55,6 @@
   "dependencies": {
     "lodash": "^4.17.20",
     "node-sass": "^4.14.1",
-    "prop-types": "^15.7.2",
-    "sonar-scanner": "^3.1.0"
+    "prop-types": "^15.7.2"
   }
 }
