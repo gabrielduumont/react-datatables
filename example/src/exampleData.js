@@ -88,12 +88,47 @@ export const tableStyles = {
 };
 
 export const headers = [
-    { "label": "Name", "key": "Name", "type": "string" },
-    { "label": "Position", "key": "Position", "type": "string" },
-    { "label": "Office", "key": "Office", "type": "string" },
-    { "label": "Age", "key": "Age", "type": "number" },
-    { "label": "Start date", "key": "StartDate", "type": "date" },
-    { "label": "Salary", "key": "Salary", "type": "number" }
+    {
+        "label": "Name",
+        "key": "Name",
+        "type": "string"
+    },
+    {
+        "label": "Position",
+        "key": "Position",
+        "type": "string"
+    }
+    ,
+    {
+        "label": "Office",
+        "key": "Office",
+        "type": "string"
+    },
+    {
+        "label": "Start Time",
+        "key": "StartTime",
+        "type": "time"
+    },
+    {
+        "label": "Some DateTime",
+        "key": "SomeDateTime",
+        "type": "datetime"
+    },
+    {
+        "label": "Age",
+        "key": "Age",
+        "type": "number"
+    },
+    {
+        "label": "Start date",
+        "key": "StartDate",
+        "type": "date"
+    },
+    {
+        "label": "Salary",
+        "key": "Salary",
+        "type": "number"
+    }
 ];
 
 export const data = [
@@ -110,8 +145,14 @@ export const data = [
         "Age": {
             "value": 75
         },
+        "SomeDateTime": {
+            "value": "2008-1-8 08:00:00"
+        },
         "StartDate": {
             "value": "11/1/2008"
+        },
+        "StartTime": {
+            "value": "08:00:00"
         },
         "Salary": {
             "value": 6691.52
@@ -130,8 +171,14 @@ export const data = [
         "Age": {
             "value": 67
         },
+        "SomeDateTime": {
+            "value": "2008-1-9 08:00:00"
+        },
         "StartDate": {
             "value": "19/5/2002"
+        },
+        "StartTime": {
+            "value": "09:00"
         },
         "Salary": {
             "value": 2304.52
@@ -150,14 +197,20 @@ export const data = [
         "Age": {
             "value": 51
         },
+        "SomeDateTime": {
+            "value": "2008-1-8 09:00:00"
+        },
         "StartDate": {
             "value": "6/2/2006"
+        },
+        "StartTime": {
+            "value": "08:00:15"
         },
         "Salary": {
             "value": 7187.52
         }
     },
-    {
+    /*{
         "Name": {
             "value": "Antonio Munk"
         },
@@ -2596,7 +2649,7 @@ export const data = [
         "Salary": {
             "value": 7647.52
         }
-    }
+    }*/
 ];
 
 export default null;

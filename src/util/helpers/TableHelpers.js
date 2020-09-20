@@ -1,8 +1,21 @@
-import { isDate, useDate } from './DateHelpers'
+import { 
+    isDate,
+    isTime, 
+    isDateTime,
+    useDate, 
+    useTime,
+    useDateTime 
+} from './DateHelpers'
 
 const handleStringValues = (value, headers, key) => {
     if (isDate(key, headers)) {
         return useDate(value);
+    }
+    else if (isTime(key, headers)) {
+        return useTime(value);
+    }
+    else if (isDateTime(key, headers)) {
+        return useDateTime(value);
     }
     else return value.toUpperCase();
 }

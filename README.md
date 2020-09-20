@@ -10,6 +10,9 @@
 npm install --save @gabrielduumont/react-datatables
 ```
 
+You can view the example detailed in: 
+https://github.com/gabrielduumont/react-datatables/tree/master/example
+
 ## Usage
 
 ```jsx
