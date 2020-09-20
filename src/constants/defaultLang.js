@@ -1,27 +1,31 @@
 export default {
-  "en-us": {
+  'en-us': {
     search: {
-      label: "Search",
-      searchingFor: "Searching for: ",
-      placeHolder: "Search"
+      label: 'Search',
+      searchingFor: 'Searching for: ',
+      placeHolder: 'Search'
     },
     paginationControl: {
-      label: "Page Size",
+      label: 'Page Size',
     },
     pagination: {
+      next: 'Next',
+      previous: 'Previous',
       totalLabel: (showing, total) => `Showing ${showing} of ${total} records`,
     }
   },
-  "pt-br": {
+  'pt-br': {
     search: {
-      label: "Pesquisar",
-      searchingFor: "Pesquisando por: ",
-      placeHolder: "Pesquisar"
+      label: 'Pesquisar',
+      searchingFor: 'Pesquisando por: ',
+      placeHolder: 'Pesquisar'
     },
     paginationControl: {
-      label: "Items por página",
+      label: 'Items por página',
     },
     pagination: {
+      next: 'Próximo',
+      previous: 'Anterior',
       totalLabel: (showing, total) => `Mostrando ${showing} de um total de ${total} items`,
     }
   }

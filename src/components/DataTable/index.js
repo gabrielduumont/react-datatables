@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Table from '../Table'
 import PaginationControl from '../PaginationControl'
@@ -33,13 +33,13 @@ const getMaxColumnsByWindowWidth = (width) => {
 
   return maxColumns;
 }
-export default function DataTable({ headers, data, lang = null }) {
+export default function DataTable({ headers, data, lang = null, tableStyles = null, pageSizes = null, initialPageSize = 10 }) {
   if (!headers || !data) return null;
   else {
     const width = useWindowSize()[0];
     const [activeOrderHeader, setActiveOrderHeader] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
-    const [maxRecordsPerPage, setMaxRecordsPerPage] = useState(10);
+    const [maxRecordsPerPage, setMaxRecordsPerPage] = useState(initialPageSize);
     const [currentPage, setCurrentPage] = useState(1);
 
 
@@ -79,10 +79,12 @@ export default function DataTable({ headers, data, lang = null }) {
     }
 
     const initializeArray = (array) => {
-      const data = paginateData(filterData(orderData(array)))
+      const filteredData = filterData(orderData(array));
+      const data = paginateData(filteredData);
       return {
         totalPages: data.totalPages,
-        currentPageData: data.currentPageData
+        currentPageData: data.currentPageData,
+        totalFiltered: filteredData.length
       };
     }
 
@@ -96,6 +98,7 @@ export default function DataTable({ headers, data, lang = null }) {
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
               lang={lang}
+              tableStyles={tableStyles}
             />
           </div>
           <div className={styles.gdDatatableControlPagination}>
@@ -103,6 +106,8 @@ export default function DataTable({ headers, data, lang = null }) {
               maxRecordsPerPage={maxRecordsPerPage}
               setMaxRecordsPerPage={setMaxRecordsPerPage}
               lang={lang}
+              tableStyles={tableStyles}
+              options={pageSizes}
             />
           </div>
         </div>
@@ -113,16 +118,18 @@ export default function DataTable({ headers, data, lang = null }) {
             setActiveOrderHeader={setActiveOrderHeader}
             content={tableData.currentPageData}
             maxColumns={getMaxColumnsByWindowWidth(width)}
+            tableStyles={tableStyles}
           />
         </div>
         <div className={styles.gdDatatablePagination}>
           <Pagination
             currentPage={currentPage}
-            pageLength={!!tableData && !!tableData.currentPageData ? tableData.currentPageData.length : 0}
+            pageLength={!!tableData && !!tableData.currentPageData ? tableData.totalFiltered : 0}
             dataLength={!!data ? data.length : 0}
             totalPages={tableData.totalPages}
             setCurrentPage={setCurrentPage}
             lang={lang}
+            tableStyles={tableStyles}
           />
         </div>
       </div>
@@ -148,7 +155,11 @@ DataTable.propTypes = {
       })
     })
   ),
-  lang: PropTypes.any
+  lang: PropTypes.any,
+  pageSizes: PropTypes.arrayOf(
+    PropTypes.number.isRequired
+  ),
+  initialPageSize: PropTypes.number
 }
 
 // DataTable.defaultProps = {

@@ -3,9 +3,20 @@ import PropTypes from 'prop-types'
 import setLanguage from '../../constants/setLanguage'
 import styles from './styles.scss'
 
-export default function Pagination({ pageLength, dataLength, currentPage, totalPages, setCurrentPage, lang = null }) {
+const defaultPaginationStyle = {
+  wrapper: null,
+  buttonsWrapper: null,
+  previous: null,
+  next: null,
+  page: null,
+  total: null,
+}
+
+export default function Pagination({ pageLength, dataLength, currentPage, totalPages, setCurrentPage, lang = null, tableStyles = null }) {
   const language = setLanguage(lang);
   const content = useMemo(() => {
+    const selectedStyle = { ...defaultPaginationStyle, ...tableStyles.paginationButtons };
+
     const onSwitchPage = (newPage) => {
       setCurrentPage(newPage);
     }
@@ -22,10 +33,26 @@ export default function Pagination({ pageLength, dataLength, currentPage, totalP
       for (let i = 0; i < totalPages; ++i) {
         const page = i + 1;
         if (page === currentPage) {
-          pageNumbersArray.push(<button key={'page_' + page}><b>{page}</b></button>)
+          pageNumbersArray.push(
+            <button
+              key={'page_' + page}
+              data-active={true}
+              style={{ ...selectedStyle.activePage }}
+            >
+              {page}
+            </button>
+          );
         }
         else {
-          pageNumbersArray.push(<button key={'page_' + page} onClick={() => onSwitchPage(page)}>{page}</button>)
+          pageNumbersArray.push(
+            <button
+              key={'page_' + page}
+              onClick={() => onSwitchPage(page)}
+              style={{ ...selectedStyle.page }}
+            >
+              {page}
+            </button>
+          );
         }
       }
       return pageNumbersArray.map(item => item)
@@ -33,14 +60,32 @@ export default function Pagination({ pageLength, dataLength, currentPage, totalP
     const isNextDisabled = currentPage === totalPages
     const isPreviousDisabled = currentPage === 1
     return (
-      <div className={styles.gdDatatablesPaginationWrapper}>
-        <div>
-          <button onClick={onPreviousPage} disabled={isPreviousDisabled}>{"<"}</button>
+      <div
+        className={styles.gdDatatablesPaginationWrapper}
+        style={{ ...selectedStyle.wrapper }}
+      >
+        <div style={{ ...selectedStyle.buttonsWrapper }}>
+          <button
+            onClick={onPreviousPage}
+            disabled={isPreviousDisabled}
+            style={{ ...selectedStyle.previous }}
+          >
+            {language.pagination.previous}
+          </button>
+
           {renderPageNumbers()}
 
-          <button onClick={onNextPage} disabled={isNextDisabled}>{">"}</button>
+          <button
+            onClick={onNextPage}
+            disabled={isNextDisabled}
+            style={{ ...selectedStyle.next }}
+          >
+            {language.pagination.next}
+          </button>
         </div>
-        <p>{language.pagination.totalLabel(pageLength, dataLength)}</p>
+        <p style={{ ...selectedStyle.total }}>
+          {language.pagination.totalLabel(pageLength, dataLength)}
+        </p>
       </div>
     )
   }, [pageLength, dataLength, currentPage, totalPages]);

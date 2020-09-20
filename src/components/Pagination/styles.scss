@@ -23,16 +23,24 @@
     transition: all cubic-bezier(0.075, 0.82, 0.165, 1) .25s;
     min-width: 30px;
     min-height: 30px;
-    border-radius: 50%;
+    border-radius: 5px;
     outline: none;
     cursor: pointer;
+    border:1px solid #d2d2d275;
+    color: #777;
+    margin: 0 .15rem;
   }
   button:disabled:hover {
     cursor: default;
     background: none;
   }
   button:hover {
-    background-color: #777;
+    background-color: #d2d2d2;
+  }
+  button[data-active=true]{
+    font-weight: bolder;
+    color: #333;
+    border:1px solid #333;
   }
   
 }

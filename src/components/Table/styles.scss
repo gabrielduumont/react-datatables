@@ -1,6 +1,6 @@
 .gdDatatableTable {
-    margin: 1rem 0 1rem 0 !important;
-    padding: 0 0.25rem !important;
+    margin: 1rem 0 1rem 0;
+    padding: 0 0.25rem;
     min-height: 100px;
     max-width: 100%;
     table-layout: fixed;
@@ -8,12 +8,13 @@
     thead {
         tr {
             th {
+                border-bottom: 1px solid #d2d2d290;
                 text-align: left;
                 font-size: 0.8rem;
                 text-transform: uppercase;
                 font-weight: 500;
                 margin: 0;
-                padding: 0.15rem 0.25rem;
+                padding: 0.5rem 0.15rem;
 
                 div {
                     display: flex;
@@ -23,7 +24,7 @@
                 }
             }
         }
-        tr th:first-child{
+        tr th:first-child {
             max-width: 2%;
             width: 2%;
         }
@@ -31,30 +32,32 @@
     tbody {
         tr {
             td {
+                border-bottom: 1px solid #d2d2d290;
                 text-align: left;
-                font-size: 0.9rem;
-                text-transform: uppercase;
-                font-weight: 500;
+                font-size: 0.85rem;
+                font-weight: 400;
                 margin: 0;
-                padding: 0 0.15rem !important;
+                padding: 0.25rem 0.15rem !important;
             }
         }
-
         tr:nth-child(odd) {
-            background-color: #f2f2f2;
+            background-color: #f2f2f275;
         }
-        tr td:first-child{
+        tr:hover {
+            background-color: #e2e2e285;
+        }
+        tr td:first-child {
             text-align: center;
             max-width: 2%;
             width: 2%;
-            transition: all .25s;
+            transition: all 0.25s;
+            cursor: pointer;
 
-            p{
+            p {
                 text-align: left;
             }
         }
-        tr td:first-child:hover{
-            cursor: pointer;
+        tr td:first-child:hover {
             background-color: #00000015;
         }
     }

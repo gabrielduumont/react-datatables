@@ -1,13 +1,9 @@
-import { DateTime } from 'luxon';
-
-
-const createSafeDate = (date = null, format = null) => {
+const createSafeDate = (date = null) => {
   if (!date)
-    return DateTime.local();
-  if (!format)
-    return DateTime.fromISO(date);
+    return new Date();
 
-  return DateTime.fromFormat(date, format);
+  const safeDate = date.split('-').map(item => parseInt(item));  
+  return new Date(safeDate[0], safeDate[1] - 1, safeDate[2], 0, 0, 0, 0);
 };
 
 const addLeadingZeroToDatePartsIfNeeded = (date = {
@@ -60,7 +56,7 @@ const sanitizeDateString = (date = '') => {
   if (!dateObject) return null;
   const standardObject = addLeadingZeroToDatePartsIfNeeded(dateObject);
 
-  return standardObject.year + '' + standardObject.month + '-' + standardObject.day;
+  return standardObject.year + '-' + standardObject.month + '-' + standardObject.day;
 }
 
 
@@ -70,8 +66,8 @@ export const isDate = (headers = [], key) => {
 }
 
 
-export const useDate = (date = null, format = null) => {
-  return createSafeDate(sanitizeDateString(date), format);
+export const useDate = (date = null) => {
+  return createSafeDate(sanitizeDateString(date));
 };
 
 export default null;

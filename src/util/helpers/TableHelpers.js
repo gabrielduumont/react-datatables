@@ -17,6 +17,7 @@ const dataTypeReducer = (type, value, headers, key) => {
         case "function":
         case "undefined":
         case "boolean":
+            return 0;
         default:
             return value;
     }
