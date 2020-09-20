@@ -10,11 +10,26 @@
   label {
     font-size: 0.85rem;
     text-transform: lowercase;
-    padding: 0.1rem;
+    padding: 0 0.25rem;
+    margin-bottom: 0.25rem;
   }
 
   input {
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0 .2rem ;
 
+    transition: all cubic-bezier(0.075, 0.82, 0.165, 1) .25s;
+    min-height: 30px;
+    border-radius: 5px;
+    border:1px solid #d2d2d275;
+    color: #777;
+    margin: 0 .15rem;
+  }
+
+  input:focus {
+    border: 1px solid #777;
   }
 
   p {

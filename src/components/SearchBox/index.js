@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
 import setLanguage from '../../constants/setLanguage'
 import styles from './styles.scss'
@@ -9,6 +9,7 @@ const defaultSearchStyle = {
   input: null,
   searchingForLabel: null
 }
+
 export default function SearchBox({ searchTerm, setSearchTerm, lang = null, hideLabel = false, tableStyles = null }) {
   const language = setLanguage(lang);
   const content = useMemo(() => {

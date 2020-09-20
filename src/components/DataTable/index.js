@@ -33,7 +33,7 @@ const getMaxColumnsByWindowWidth = (width) => {
 
   return maxColumns;
 }
-export default function DataTable({ headers, data, lang = null, tableStyles = null, pageSizes = null, initialPageSize = 10 }) {
+export default function DataTable({ headers, data, lang = null, tableStyles = null, pageSizes = null, initialPageSize = 10, extraConfig = null }) {
   if (!headers || !data) return null;
   else {
     const width = useWindowSize()[0];
@@ -99,6 +99,7 @@ export default function DataTable({ headers, data, lang = null, tableStyles = nu
               setSearchTerm={setSearchTerm}
               lang={lang}
               tableStyles={tableStyles}
+              extraConfig={extraConfig}
             />
           </div>
           <div className={styles.gdDatatableControlPagination}>
@@ -108,6 +109,7 @@ export default function DataTable({ headers, data, lang = null, tableStyles = nu
               lang={lang}
               tableStyles={tableStyles}
               options={pageSizes}
+              extraConfig={extraConfig}
             />
           </div>
         </div>
@@ -119,6 +121,7 @@ export default function DataTable({ headers, data, lang = null, tableStyles = nu
             content={tableData.currentPageData}
             maxColumns={getMaxColumnsByWindowWidth(width)}
             tableStyles={tableStyles}
+            extraConfig={extraConfig}
           />
         </div>
         <div className={styles.gdDatatablePagination}>
@@ -130,6 +133,7 @@ export default function DataTable({ headers, data, lang = null, tableStyles = nu
             setCurrentPage={setCurrentPage}
             lang={lang}
             tableStyles={tableStyles}
+            extraConfig={extraConfig}
           />
         </div>
       </div>

@@ -1,62 +1,97 @@
 .gdDatatableTable {
-    margin: 1rem 0 1rem 0;
+    margin: 1rem 0;
     padding: 0 0.25rem;
     min-height: 100px;
     max-width: 100%;
     table-layout: fixed;
+    transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.25s;
 
-    thead {
+
+    thead,
+    tfoot {
+        transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.25s;
         tr {
+            transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.25s;
             th {
+                cursor: pointer;
+                transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.25s;
+                border-top: 1px solid #d2d2d290;
                 border-bottom: 1px solid #d2d2d290;
                 text-align: left;
                 font-size: 0.8rem;
                 text-transform: uppercase;
                 font-weight: 500;
                 margin: 0;
-                padding: 0.5rem 0.15rem;
+                padding: 0.5rem 0.5rem 0.5rem 0.25rem;
 
                 div {
+                    transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.25s;
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
                     align-items: flex-start;
                 }
             }
+
+            th:hover {
+                background-color: #00000015;
+            }
         }
         tr th:first-child {
+            cursor: default;
             max-width: 2%;
             width: 2%;
+            border-left: 1px solid #d2d2d290;
+        }
+        tr th:last-child {
+            border-right: 1px solid #d2d2d290;
         }
     }
     tbody {
+        transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.25s;
+
         tr {
+            transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.25s;
             td {
+                transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.25s;
                 border-bottom: 1px solid #d2d2d290;
                 text-align: left;
                 font-size: 0.85rem;
                 font-weight: 400;
                 margin: 0;
-                padding: 0.25rem 0.15rem !important;
+                padding: 0.25rem 0.25rem !important;
             }
         }
+
         tr:nth-child(odd) {
             background-color: #f2f2f275;
         }
+
         tr:hover {
             background-color: #e2e2e285;
+
+            td {
+                border-bottom: 1px solid #c0c0c095;
+            }
         }
+
         tr td:first-child {
             text-align: center;
             max-width: 2%;
             width: 2%;
             transition: all 0.25s;
+            border-left: 1px solid #d2d2d290;
+
             cursor: pointer;
 
             p {
                 text-align: left;
             }
         }
+        tr td:last-child {
+            border-right: 1px solid #d2d2d290;
+        }
+
         tr td:first-child:hover {
             background-color: #00000015;
         }

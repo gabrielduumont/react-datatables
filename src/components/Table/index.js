@@ -17,20 +17,29 @@ export default function Table({ headers, activeOrderHeader, setActiveOrderHeader
                 className={styles.gdDatatableTable}
                 cellPadding={0}
                 cellSpacing={0}
-                style={{...tableStyle.table}}
+                style={{ ...tableStyle.table }}
             >
                 <Header
                     headers={headers}
                     activeOrderHeader={activeOrderHeader}
                     setActiveOrderHeader={setActiveOrderHeader}
                     maxColumns={maxColumns}
-                    headerStyle={{...tableStyle.header}}
+                    headerStyle={{ ...tableStyle.header }}
+                    isFooter={false}
                 />
                 <Content
                     headers={headers}
                     content={content}
                     maxColumns={maxColumns}
-                    contentStyle={{...tableStyle.content}}
+                    contentStyle={{ ...tableStyle.content }}
+                />
+                <Header
+                    headers={headers}
+                    activeOrderHeader={activeOrderHeader}
+                    setActiveOrderHeader={setActiveOrderHeader}
+                    maxColumns={maxColumns}
+                    headerStyle={{ ...tableStyle.footer }}
+                    isFooter={true}
                 />
             </table>
         );
