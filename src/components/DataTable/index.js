@@ -11,23 +11,23 @@ import styles from './styles.scss'
 
 const getMaxColumnsByWindowWidth = (width) => {
   let maxColumns = 0;
-  if(width >= 1281){
+  if (width >= 1281) {
     //Device = Desktops
     maxColumns = 5;
   }
-  else if(width > 1024 && width <= 1280){
+  else if (width > 1024 && width <= 1280) {
     //Laptops, Desktops
     maxColumns = 4;
   }
-  else if(width > 768 && width <= 1024){
+  else if (width > 768 && width <= 1024) {
     //Tablets, Ipads (portrait)
     maxColumns = 3;
   }
-  else if(width > 500 && width <= 768){
+  else if (width > 500 && width <= 768) {
     //Tablets, Ipads (portrait)
     maxColumns = 2;
   }
-  else if(width <= 500){
+  else if (width <= 500) {
     maxColumns = 1;
   }
 
@@ -42,6 +42,9 @@ export default function DataTable({ headers, data, lang = null, tableStyles = nu
     const [maxRecordsPerPage, setMaxRecordsPerPage] = useState(initialPageSize);
     const [currentPage, setCurrentPage] = useState(1);
 
+    //Extra Config
+    const hideSearch = !!extraConfig ? !!extraConfig.hideSearch : false;
+    const hidePaginationControl = !!extraConfig ? !!extraConfig.hidePaginationControl : false;
 
     const orderData = (originalDataArray) => {
       const dataArray = [...originalDataArray];
@@ -92,36 +95,47 @@ export default function DataTable({ headers, data, lang = null, tableStyles = nu
 
     return (
       <div className={styles.gdDatatableWrapper}>
-        <div className={styles.gdDatatableControl}>
-          <div className={styles.gdDatatableControlSearch}>
-            <SearchBox
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-              lang={lang}
-              tableStyles={tableStyles}
-              extraConfig={extraConfig}
-            />
-          </div>
-          <div className={styles.gdDatatableControlPagination}>
-            <PaginationControl
-              maxRecordsPerPage={maxRecordsPerPage}
-              setMaxRecordsPerPage={setMaxRecordsPerPage}
-              lang={lang}
-              tableStyles={tableStyles}
-              options={pageSizes}
-              extraConfig={extraConfig}
-            />
-          </div>
-        </div>
+        {
+          !!hidePaginationControl && !!hideSearch ? null : (
+            <div className={styles.gdDatatableControl}>
+              {
+                !!hideSearch ? null : (
+                  <div className={styles.gdDatatableControlSearch}>
+                    <SearchBox
+                      searchTerm={searchTerm}
+                      setSearchTerm={setSearchTerm}
+                      lang={lang}
+                      tableStyles={tableStyles}
+                    />
+                  </div>
+                )
+              }
+              {
+                !!hidePaginationControl ? null : (
+                  <div className={styles.gdDatatableControlPagination}>
+                    <PaginationControl
+                      maxRecordsPerPage={maxRecordsPerPage}
+                      setMaxRecordsPerPage={setMaxRecordsPerPage}
+                      lang={lang}
+                      tableStyles={tableStyles}
+                      options={pageSizes}
+                    />
+                  </div>
+                )
+              }
+
+            </div>
+          )
+        }
+
         <div className={styles.gdDatatableTableWrapper}>
-          <Table 
+          <Table
             headers={headers}
             activeOrderHeader={activeOrderHeader}
             setActiveOrderHeader={setActiveOrderHeader}
             content={tableData.currentPageData}
             maxColumns={getMaxColumnsByWindowWidth(width)}
             tableStyles={tableStyles}
-            extraConfig={extraConfig}
           />
         </div>
         <div className={styles.gdDatatablePagination}>
@@ -133,7 +147,6 @@ export default function DataTable({ headers, data, lang = null, tableStyles = nu
             setCurrentPage={setCurrentPage}
             lang={lang}
             tableStyles={tableStyles}
-            extraConfig={extraConfig}
           />
         </div>
       </div>

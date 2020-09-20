@@ -54,7 +54,6 @@ const HeaderItem = ({ element, setActiveOrderHeader, activeOrderHeader, maxWidth
     }, [element, activeOrderHeader, maxWidthForCells]);
     return content;
 }
-
 const defaultHeaderStyle = {
     thead: null,
     tr: null,

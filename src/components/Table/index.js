@@ -50,4 +50,5 @@ export default function Table({ headers, activeOrderHeader, setActiveOrderHeader
 
 Table.propTypes = {
     lang: PropTypes.any,
+    filterByColumn: PropTypes.bool,
 }

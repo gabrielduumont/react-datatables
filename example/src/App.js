@@ -5,6 +5,11 @@ import '@gabrielduumont/react-datatables/dist/index.css'
 
 import { data, headers, tableStyles } from './exampleData'
 
+const extraConfig = {
+  //hideSearch: true,
+  //hidePaginationControl: true,
+};
+
 const App = () => {
   return (
     <div>
@@ -18,6 +23,7 @@ const App = () => {
         lang='pt-br'
         initialPageSize={25}
         pageSizes={[25, 30]}
+        extraConfig={extraConfig}
       />
     </div>
   )
