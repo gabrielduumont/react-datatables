@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import styles from './styles.css'
 
-const HeaderItem = ({ element, setActiveOrderHeader, activeOrderHeader, maxWidthForCells }) => {
+const HeaderItem = ({ element, setActiveOrderHeader, activeOrderHeader, maxWidthForCells, cellStyle }) => {
     const [orderAscending, setOrderAscending] = useState(null);
     const [clickCount, setClickCount] = useState(0);
 
@@ -39,7 +39,12 @@ const HeaderItem = ({ element, setActiveOrderHeader, activeOrderHeader, maxWidth
             }
         }
         return (
-            <th title={element.title} onClick={updateClicks} className='gd-datatable-header-cell' style={{ width: maxWidthForCells + '%' }}>
+            <th
+                title={element.title}
+                onClick={updateClicks}
+                className='gd-datatable-header-cell'
+                style={{ ...cellStyle, width: maxWidthForCells + '%' }}
+            >
                 <div>
                     <span>{element.label}</span>
                     {!!isActiveOrderFilter && renderOrderIcon()}
@@ -49,35 +54,71 @@ const HeaderItem = ({ element, setActiveOrderHeader, activeOrderHeader, maxWidth
     }, [element, activeOrderHeader, maxWidthForCells]);
     return content;
 }
+const defaultHeaderStyle = {
+    thead: null,
+    tr: null,
+    th: null,
+};
 
-export default function Header({ activeOrderHeader, setActiveOrderHeader, headers = [], maxColumns = 1 }) {
+export default function Header({ activeOrderHeader, setActiveOrderHeader, headers = [], maxColumns = 1, headerStyle = null, isFooter = false }) {
     const content = useMemo(() => {
         if (!!headers && headers.length > 0) {
-            const maxWidthForCells = 95 / headers.length;
-            return (
-                <thead className='gd-datatable-table-header'>
-                    <tr className='gd-datatable-table-header-row'>
-                        <th className='gd-datatable-table-header-cell'>
+            const selectedHeaderStyle = !!headerStyle ? { ...headerStyle } : { ...defaultHeaderStyle };
+            const maxWidthForCells = 98 / headers.length;
+            if (!isFooter) {
+                return (
+                    <thead className='gd-datatable-table-header' style={{ ...selectedHeaderStyle.thead }}>
+                        <tr className='gd-datatable-table-header-row' style={{ ...selectedHeaderStyle.tr }}>
+                            <th className='gd-datatable-table-header-cell' style={{ ...selectedHeaderStyle.th }}>
 
-                        </th>
-                        {headers.map((element, index) => {
-                            if (index < maxColumns) {
-                                return (
-                                    <HeaderItem
-                                        key={element.key}
-                                        element={element}
-                                        setActiveOrderHeader={setActiveOrderHeader}
-                                        activeOrderHeader={activeOrderHeader}
-                                        maxWidthForCells={maxWidthForCells}
-                                    />
-                                );
-                            }
-                            else return null;
-                        })}
+                            </th>
+                            {headers.map((element, index) => {
+                                if (index < maxColumns) {
+                                    return (
+                                        <HeaderItem
+                                            key={element.key}
+                                            element={element}
+                                            setActiveOrderHeader={setActiveOrderHeader}
+                                            activeOrderHeader={activeOrderHeader}
+                                            maxWidthForCells={maxWidthForCells}
+                                            cellStyle={{ ...selectedHeaderStyle.th }}
+                                        />
+                                    );
+                                }
+                                else return null;
+                            })}
 
-                    </tr>
-                </thead>
-            )
+                        </tr>
+                    </thead>
+                )
+            }
+            else {
+                return (
+                    <tfoot className='gd-datatable-table-header' style={{ ...selectedHeaderStyle.thead }}>
+                        <tr className='gd-datatable-table-header-row' style={{ ...selectedHeaderStyle.tr }}>
+                            <th className='gd-datatable-table-header-cell' style={{ ...selectedHeaderStyle.th }}>
+
+                            </th>
+                            {headers.map((element, index) => {
+                                if (index < maxColumns) {
+                                    return (
+                                        <HeaderItem
+                                            key={element.key}
+                                            element={element}
+                                            setActiveOrderHeader={setActiveOrderHeader}
+                                            activeOrderHeader={activeOrderHeader}
+                                            maxWidthForCells={maxWidthForCells}
+                                            cellStyle={{ ...selectedHeaderStyle.th }}
+                                        />
+                                    );
+                                }
+                                else return null;
+                            })}
+
+                        </tr>
+                    </tfoot>
+                )
+            }
         }
         else return null;
     }, [headers, activeOrderHeader, maxColumns]);

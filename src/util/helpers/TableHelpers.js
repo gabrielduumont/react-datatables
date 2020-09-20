@@ -1,7 +1,7 @@
 import { isDate, useDate } from './DateHelpers'
 
 const handleStringValues = (value, headers, key) => {
-    if (isDate(headers, key)) {
+    if (isDate(key, headers)) {
         return useDate(value);
     }
     else return value.toUpperCase();
@@ -17,6 +17,7 @@ const dataTypeReducer = (type, value, headers, key) => {
         case "function":
         case "undefined":
         case "boolean":
+            return 0;
         default:
             return value;
     }

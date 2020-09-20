@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styles from './styles.css'
 
-export default function HeaderCells({ item, index, headers, maxColumns = 1 }) {
+export default function HeaderCells({ item, index, headers, maxColumns = 1, cellStyle = null }) {
 
   return headers.map((headerItem, innerIndex) => {
     if (innerIndex < maxColumns) {
@@ -10,7 +9,7 @@ export default function HeaderCells({ item, index, headers, maxColumns = 1 }) {
       const parser = item[headerItem.key].parser;
       const title = item[headerItem.key].title;
       return (
-        <td key={headerItem.key + '_' + index} title={title} className='gd-datatable-table-content-cell'>
+        <td key={headerItem.key + '_' + index} title={title} className='gd-datatable-table-content-cell' style={{...cellStyle}}>
           {!!parser ? parser(item[headerItem.key].value) : item[headerItem.key].value}
         </td>
       )

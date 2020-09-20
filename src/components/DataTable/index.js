@@ -11,37 +11,40 @@ import styles from './styles.scss'
 
 const getMaxColumnsByWindowWidth = (width) => {
   let maxColumns = 0;
-  if(width >= 1281){
+  if (width >= 1281) {
     //Device = Desktops
     maxColumns = 5;
   }
-  else if(width > 1024 && width <= 1280){
+  else if (width > 1024 && width <= 1280) {
     //Laptops, Desktops
     maxColumns = 4;
   }
-  else if(width > 768 && width <= 1024){
+  else if (width > 768 && width <= 1024) {
     //Tablets, Ipads (portrait)
     maxColumns = 3;
   }
-  else if(width > 500 && width <= 768){
+  else if (width > 500 && width <= 768) {
     //Tablets, Ipads (portrait)
     maxColumns = 2;
   }
-  else if(width <= 500){
+  else if (width <= 500) {
     maxColumns = 1;
   }
 
   return maxColumns;
 }
-export default function DataTable({ headers, data, lang = null }) {
+export default function DataTable({ headers, data, lang = null, tableStyles = null, pageSizes = null, initialPageSize = 10, extraConfig = null }) {
   if (!headers || !data) return null;
   else {
     const width = useWindowSize()[0];
     const [activeOrderHeader, setActiveOrderHeader] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
-    const [maxRecordsPerPage, setMaxRecordsPerPage] = useState(10);
+    const [maxRecordsPerPage, setMaxRecordsPerPage] = useState(initialPageSize);
     const [currentPage, setCurrentPage] = useState(1);
 
+    //Extra Config
+    const hideSearch = !!extraConfig ? !!extraConfig.hideSearch : false;
+    const hidePaginationControl = !!extraConfig ? !!extraConfig.hidePaginationControl : false;
 
     const orderData = (originalDataArray) => {
       const dataArray = [...originalDataArray];
@@ -79,10 +82,12 @@ export default function DataTable({ headers, data, lang = null }) {
     }
 
     const initializeArray = (array) => {
-      const data = paginateData(filterData(orderData(array)))
+      const filteredData = filterData(orderData(array));
+      const data = paginateData(filteredData);
       return {
         totalPages: data.totalPages,
-        currentPageData: data.currentPageData
+        currentPageData: data.currentPageData,
+        totalFiltered: filteredData.length
       };
     }
 
@@ -90,39 +95,58 @@ export default function DataTable({ headers, data, lang = null }) {
 
     return (
       <div className={styles.gdDatatableWrapper}>
-        <div className={styles.gdDatatableControl}>
-          <div className={styles.gdDatatableControlSearch}>
-            <SearchBox
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-              lang={lang}
-            />
-          </div>
-          <div className={styles.gdDatatableControlPagination}>
-            <PaginationControl
-              maxRecordsPerPage={maxRecordsPerPage}
-              setMaxRecordsPerPage={setMaxRecordsPerPage}
-              lang={lang}
-            />
-          </div>
-        </div>
+        {
+          !!hidePaginationControl && !!hideSearch ? null : (
+            <div className={styles.gdDatatableControl}>
+              {
+                !!hideSearch ? null : (
+                  <div className={styles.gdDatatableControlSearch}>
+                    <SearchBox
+                      searchTerm={searchTerm}
+                      setSearchTerm={setSearchTerm}
+                      lang={lang}
+                      tableStyles={tableStyles}
+                    />
+                  </div>
+                )
+              }
+              {
+                !!hidePaginationControl ? null : (
+                  <div className={styles.gdDatatableControlPagination}>
+                    <PaginationControl
+                      maxRecordsPerPage={maxRecordsPerPage}
+                      setMaxRecordsPerPage={setMaxRecordsPerPage}
+                      lang={lang}
+                      tableStyles={tableStyles}
+                      options={pageSizes}
+                    />
+                  </div>
+                )
+              }
+
+            </div>
+          )
+        }
+
         <div className={styles.gdDatatableTableWrapper}>
-          <Table 
+          <Table
             headers={headers}
             activeOrderHeader={activeOrderHeader}
             setActiveOrderHeader={setActiveOrderHeader}
             content={tableData.currentPageData}
             maxColumns={getMaxColumnsByWindowWidth(width)}
+            tableStyles={tableStyles}
           />
         </div>
         <div className={styles.gdDatatablePagination}>
           <Pagination
             currentPage={currentPage}
-            pageLength={!!tableData && !!tableData.currentPageData ? tableData.currentPageData.length : 0}
+            pageLength={!!tableData && !!tableData.currentPageData ? tableData.totalFiltered : 0}
             dataLength={!!data ? data.length : 0}
             totalPages={tableData.totalPages}
             setCurrentPage={setCurrentPage}
             lang={lang}
+            tableStyles={tableStyles}
           />
         </div>
       </div>
@@ -148,7 +172,11 @@ DataTable.propTypes = {
       })
     })
   ),
-  lang: PropTypes.any
+  lang: PropTypes.any,
+  pageSizes: PropTypes.arrayOf(
+    PropTypes.number.isRequired
+  ),
+  initialPageSize: PropTypes.number
 }
 
 // DataTable.defaultProps = {
