@@ -4,7 +4,10 @@
   "description": "React component that will render data into a responsive HTML table",
   "author": "gabrielduumont",
   "license": "MIT",
-  "repository": "gabrielduumont/react-datatables",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielduumont/react-datatables.git"
+  },
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",
@@ -59,5 +62,16 @@
     "lodash": "^4.17.20",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/gabrielduumont/react-datatables/issues"
+  },
+  "homepage": "https://github.com/gabrielduumont/react-datatables#readme",
+  "directories": {
+    "example": "example"
+  },
+  "keywords": [
+    "react",
+    "datatables"
+  ]
 }
