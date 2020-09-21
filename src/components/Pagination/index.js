@@ -15,8 +15,8 @@ const defaultPaginationStyle = {
 export default function Pagination({ pageLength, dataLength, currentPage, totalPages, setCurrentPage, lang = null, tableStyles = null }) {
   const language = setLanguage(lang);
   const content = useMemo(() => {
-    const selectedStyle = { ...defaultPaginationStyle, ...tableStyles.paginationButtons };
-
+    const selectedStyle = !!tableStyles ? { ...tableStyles.paginationButtons } : { ...defaultPaginationStyle };
+    
     const onSwitchPage = (newPage) => {
       setCurrentPage(newPage);
     }

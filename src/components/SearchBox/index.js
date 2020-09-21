@@ -13,7 +13,7 @@ const defaultSearchStyle = {
 export default function SearchBox({ searchTerm, setSearchTerm, lang = null, hideLabel = false, tableStyles = null }) {
   const language = setLanguage(lang);
   const content = useMemo(() => {
-    const selectedStyle = { ...defaultSearchStyle, ...tableStyles.search };
+    const selectedStyle = !!tableStyles ? { ...tableStyles.search } : { ...defaultSearchStyle };
 
     return (
       <div

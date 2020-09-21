@@ -18,12 +18,12 @@ const App = () => {
         data={data}
         headers={headers}
         
-        //optional props
-        tableStyles={tableStyles}
-        lang='pt-br'
-        initialPageSize={25}
-        pageSizes={[25, 30]}
-        extraConfig={extraConfig}
+        // //optional props
+        // tableStyles={tableStyles}
+        // lang='pt-br'
+        // initialPageSize={25}
+        // pageSizes={[25, 30]}
+        // extraConfig={extraConfig}
       />
     </div>
   )
