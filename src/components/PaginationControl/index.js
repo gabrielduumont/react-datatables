@@ -31,7 +31,7 @@ const OptionsList = ({ values = null, optionStyle = null }) => {
 export default function PaginationControl({ maxRecordsPerPage, setMaxRecordsPerPage, lang = null, tableStyles = null, options = null }) {
   const language = setLanguage(lang);
   const content = useMemo(() => {
-    const selectedStyle = { ...defaultPaginationControlStyle, ...tableStyles.paginationControl };
+    const selectedStyle = !!tableStyles ? { ...tableStyles.paginationControl } : { ...defaultPaginationControlStyle };
 
     const onChange = (e) => {
       return !e.target.value || e.target.value === 0 ?
