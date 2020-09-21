@@ -127,10 +127,13 @@ Currently implemented languages:
 "pt-br", "en-us" (default)
 
 
+
 **initialPageSize** and **pageSizes** (yes! must be used together)
 
 - pageSizes: an array of numbers
 - initialPageSize: A number that must be contained on *pageSizes*
+
+
 
 **tableStyles**
 
@@ -138,7 +141,9 @@ You can find a reference to this object here:
 https://github.com/gabrielduumont/react-datatables/blob/master/example/src/exampleData.js
 
 
+
 **extraConfig**
+
 Object that should have any of this properties:
 
 - hideSearch: boolean to hide filters
