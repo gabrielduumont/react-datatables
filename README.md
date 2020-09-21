@@ -5,8 +5,14 @@
 [![NPM](https://img.shields.io/npm/v/@gabrielduumont/react-datatables.svg)](https://www.npmjs.com/package/@gabrielduumont/react-datatables) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 This project is inspired in: https://datatables.net/
+
 If you want to collaborate: https://github.com/gabrielduumont/react-datatables
+
 Please report any bugs found.
+
+## Example
+
+https://gabrielduumont.github.io/react-datatables/
 
 ## Install
 
@@ -68,7 +74,11 @@ The simple definition of an object
       "SomeDateTime": {
           "value": "2008-1-8 08:00:00", //required prop
 
-          /* Optionally, you can override the value show with the use of a parser inside the object, as the example below. Since parser is a function, it can also be another component. The parser function takes one argument, which is *value*, and that argument represents the value above.
+          /* 
+          Optionally, you can override the value show with the use of a parser inside the object, as the example below. 
+          Since parser is a function, it can also be another component. 
+          
+          The parser function takes one argument, which is *value*, and that argument represents the value above.
           The parser function must return something to be rendered.
 
           Example 1
@@ -92,7 +102,9 @@ The simple definition of an object
 ### Optional props
 
 **lang**
+
 It can be a string or and object that matches the following structure:
+
 ```js
 "en-us": {
     "search": {
@@ -121,6 +133,7 @@ Currently implemented languages:
 - initialPageSize: A number that must be contained on *pageSizes*
 
 **tableStyles**
+
 You can find a reference to this object here:
 https://github.com/gabrielduumont/react-datatables/blob/master/example/src/exampleData.js
 
