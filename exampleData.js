@@ -1,3 +1,10 @@
+import React from 'react';
+
+export const extraConfig = {
+    //hideSearch: true,
+    //hidePaginationControl: true,
+};
+
 export const tableStyles = {
     table: {
         //color: 'red',
@@ -134,16 +141,17 @@ export const headers = [
 export const data = [
     {
         "Name": {
-            "value": "Ana Shire"
-        },
-        "Position": {
-            "value": "San Francisco"
+            "value": "Ana Baggins",
+            "parser": (value) => <p onClick={() => alert("hello")}>{value}</p>
         },
         "Office": {
+            "value": "San Francisco"
+        },
+        "Position": {
             "value": "Junior Technical Author"
         },
         "Age": {
-            "value": 75
+            "value": 75,
         },
         "SomeDateTime": {
             "value": "2008-1-8 08:00:00"
@@ -162,10 +170,10 @@ export const data = [
         "Name": {
             "value": "Daniel Baggins"
         },
-        "Position": {
+        "Office": {
             "value": "New York"
         },
-        "Office": {
+        "Position": {
             "value": "Chief Executive Officer (CEO)"
         },
         "Age": {
@@ -188,10 +196,10 @@ export const data = [
         "Name": {
             "value": "Daniel Zonk"
         },
-        "Position": {
+        "Office": {
             "value": "New York"
         },
-        "Office": {
+        "Position": {
             "value": "Software Engineer"
         },
         "Age": {
@@ -210,7 +218,6 @@ export const data = [
             "value": 7187.52
         }
     },
-    
 ];
 
 export default null;

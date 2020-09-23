@@ -1,32 +1,27 @@
-import React from 'react'
+import React from 'react';
 
-import { DataTable } from '@gabrielduumont/react-datatables'
-import '@gabrielduumont/react-datatables/dist/index.css'
+import { DataTable } from '@gabrielduumont/react-datatables';
+import '@gabrielduumont/react-datatables/dist/index.css';
 
-import { data, headers, tableStyles } from './exampleData'
+import { data, headers, extraConfig, tableStyles } from './exampleData';
 
-const extraConfig = {
-  //hideSearch: true,
-  //hidePaginationControl: true,
-};
-
-const App = () => {
+function App() {
   return (
-    <div>
+    <div className="App">
       <DataTable
         //required props
         data={data}
         headers={headers}
-        
-        // //optional props
-        // tableStyles={tableStyles}
-        // lang='pt-br'
-        // initialPageSize={25}
-        // pageSizes={[25, 30]}
-        // extraConfig={extraConfig}
+
+        //optional props
+        tableStyles={tableStyles}
+        lang='pt-br'
+        initialPageSize={25}
+        pageSizes={[25, 30]}
+        extraConfig={extraConfig}
       />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
