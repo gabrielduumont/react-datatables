@@ -12,7 +12,7 @@ Please report any bugs found.
 
 ## Example
 
-https://gabrielduumont.github.io/react-datatables/
+![](gif.gif)
 
 ## Install
 
