@@ -43,10 +43,10 @@ export const orderByParser = (o, key, headers) => {
 
     return dataTypeReducer(typeof value, value, headers, key);
 }
-export const filterParser = (o, search) => {
+export const filterParser = (o, search) => {ju
     let countMatches = 0;
     for (var prop in o) {
-        const value = !!o[prop].value ? !!o[prop].parser ? o[prop].parser(o[prop].value) : o[prop].value : "" ;
+        const value = !!o[prop].value ? o[prop].value : "" ;
         const standardizedValue = !!value ? value.toString().toLowerCase() : "";
         const standardizedSearch = !!search ? search.toString().toLowerCase() : "";
         if (standardizedValue.includes(standardizedSearch)) {
