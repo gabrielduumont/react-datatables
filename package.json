@@ -1,6 +1,6 @@
 {
   "name": "@gabrielduumont/react-datatables",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "React component that will render data into a responsive HTML table",
   "author": "gabrielduumont",
   "license": "MIT",
@@ -72,6 +72,7 @@
   },
   "keywords": [
     "react",
-    "datatables"
+    "datatables",
+    "react-datatables"
   ]
 }
